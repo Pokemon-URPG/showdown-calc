@@ -373,6 +373,9 @@ export function calculateSMSSSV(
     desc.defenderAbility = defender.ability;
     return result;
   }
+    if (typeEffectiveness === 4) {
+    desc.alliesFainted = 3;
+  }
 
   if (move.hasType('Ground') && !move.named('Thousand Arrows') &&
       !field.isGravity && defender.hasItem('Air Balloon')) {

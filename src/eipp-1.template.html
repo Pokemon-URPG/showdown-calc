@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>EiPP Damage Calculator</title>
+    <title>EiKPP Damage Calculator</title>
     <link type="text/css" rel="stylesheet" href="./js/vendor/select2/select2.css" />
     <link type="text/css" rel="stylesheet" href="./css/main.css?" />
     <link type="text/css" rel="stylesheet" href="./css/vendor/bootstrap.css" />
@@ -44,17 +44,17 @@
     </ul>
     <ul class="nav nav-play">
         <li><a class="button nav-first" href="//calc.pokemonshowdown.com">Normal Damage Calculator</a></li>
-        <li><a class="button greenbutton nav-last" href="//play.pokemonshowdown.com">Pok&eacute;mon Showdown</a></li>
+        <li><a class="button greenbutton nav-last" href="//play.pokeathlon.com">Pok&eacute;athlon</a></li>
     </ul>
     <div style="clear:both"></div>
 </div></div></nav>
 <div class="wrapper">
 
-    <span class="title-text main-title-text">EiPP Pok&eacute;mon Damage Calculator</span>
+    <span class="title-text main-title-text">EiKPP Pok&eacute;mon Damage Calculator</span>
     <div aria-label="Settings" role="region">
         <span class="modeSelection" aria-labelledby="selectModeInstruction" role="radiogroup" title="Select the calculator's mode of function.">
             <span class="visually-hidden" id="selectModeInstruction">Select the calculator's mode of function.</span>
-            <input class="mode visually-hidden" type="radio" name="mode" id="eipp" checked="checked" /><label class="btn btn-wide btn-left" for="eipp">EiPP -1</label>
+            <input class="mode visually-hidden" type="radio" name="mode" id="eipp" checked="checked" /><label class="btn btn-wide btn-left" for="eipp">EiKPP -1</label>
             <input class="mode visually-hidden" type="radio" name="mode" id="one-vs-one" /><label class="btn btn-wide btn-right" for="one-vs-one">EiPP-Base</label>
 <!--            <input class="mode visually-hidden" type="radio" name="mode" id="one-vs-all" /><label class="btn btn-mid btn-wide gen-specific g3 g4 g5 g6 g7 g8 g9" for="one-vs-all">One vs All</label>
             <input class="mode visually-hidden" type="radio" name="mode" id="all-vs-one" /><label class="btn btn-right btn-wide gen-specific g3 g4 g5 g6 g7 g8 g9" for="all-vs-one">All vs One</label> -->
@@ -69,7 +69,7 @@
             <input class="gen visually-hidden" type="radio" name="gen" value="6" id="gen6" /><label class="btn btn-small btn-mid" for="gen6">X/Y</label>
             <input class="gen visually-hidden" type="radio" name="gen" value="7" id="gen7" /><label class="btn btn-small btn-mid" for="gen7">S/M</label>
             <input class="gen visually-hidden" type="radio" name="gen" value="8" id="gen8" /><label class="btn btn-small btn-mid" for="gen8">S/S</label> -->
-            <input class="gen visually-hidden" type="radio" name="gen" value="9" id="gen9" checked="checked" /><label class="btn btn-small" for="gen9">S/V ND</label>
+            <input class="gen visually-hidden" type="radio" name="gen" value="9" id="gen9" checked="checked" /><label class="btn btn-small" for="gen9">IF ND</label>
         </span>
         <span class="notationSelection" aria-labelledby="selectNotationInstruction" role="radiogroup" title="Select the output notation.">
             <span class="visually-hidden" id="selectNotationInstruction">Select the output notation.</span>
@@ -1597,7 +1597,7 @@
     </script>
     <script type="text/javascript" src="./calc/util.js?"></script>
     <script type="text/javascript" src="./calc/stats.js?"></script>
-    <script type="text/javascript" src="./calc/data/eipp-1_species.js?"></script>
+    <script type="text/javascript" src="./calc/data/eikpp_species.js?"></script>
     <script type="text/javascript" src="./js/data/sets/gen9.js?"></script>
     <script type="text/javascript" src="./js/data/sets/gen8.js?"></script>
     <script type="text/javascript" src="./js/data/sets/gen7.js?"></script>
@@ -1607,18 +1607,18 @@
     <script type="text/javascript" src="./js/data/sets/gen3.js?"></script>
     <script type="text/javascript" src="./js/data/sets/gen2.js?"></script>
     <script type="text/javascript" src="./js/data/sets/gen1.js?"></script>
-    <script type="text/javascript" src="./calc/data/types.js?"></script>
+    <script type="text/javascript" src="./calc/data/eikpp_types.js?"></script>
     <script type="text/javascript" src="./calc/data/natures.js?"></script>
     <script type="text/javascript" src="./calc/data/abilities.js?"></script>
     <script type="text/javascript" src="./calc/data/moves.js?"></script>
-    <script type="text/javascript" src="./calc/data/eipp-1_items.js?"></script>
+    <script type="text/javascript" src="./calc/data/items.js?"></script>
     <script type="text/javascript" src="./calc/data/index.js?"></script>
     <script type="text/javascript" src="./calc/move.js?"></script>
     <script type="text/javascript" src="./calc/pokemon.js?"></script>
     <script type="text/javascript" src="./calc/field.js?"></script>
-    <script type="text/javascript" src="./calc/eipp-1_items.js?"></script>
+    <script type="text/javascript" src="./calc/items.js?"></script>
     <script type="text/javascript" src="./calc/mechanics/util.js?"></script>
-    <script type="text/javascript" src="./calc/mechanics/eipp-1_gen789.js?"></script>
+    <script type="text/javascript" src="./calc/mechanics/gen789.js?"></script>
     <script type="text/javascript" src="./calc/mechanics/gen56.js?"></script>
     <script type="text/javascript" src="./calc/mechanics/gen4.js?"></script>
     <script type="text/javascript" src="./calc/mechanics/gen3.js?"></script>
@@ -1628,7 +1628,7 @@
     <script type="text/javascript" src="./calc/result.js?"></script>
     <script type="text/javascript" src="./calc/adaptable.js?"></script>
     <script type="text/javascript" src="./calc/index.js?"></script>
-    <script type="text/javascript" src="./js/eipp-1_shared_controls.js?"></script>
+    <script type="text/javascript" src="./js/shared_controls.js?"></script>
     <script type="text/javascript" src="./js/index_randoms_controls.js?"></script>
     <script type="text/javascript" src="./js/moveset_import.js?"></script>
 </div>

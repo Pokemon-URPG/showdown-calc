@@ -338,7 +338,7 @@ const SV_PATCH: {[name: string]: DeepPartial<SpeciesData>} = {
     weightkg: 129.3,
     abilities: {0: 'Pressure'},
   },
-  Sydily: {
+  Syldily: {
     types: ['Fairy', 'Grass'],
     bs: {hp: 92, at: 75, df: 86, sa: 100, sd: 122, sp: 48},
     weightkg: 42,

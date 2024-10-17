@@ -1,3 +1,8 @@
+var PC_HANDLER = function () {
+	setTimeout(performCalculations, 0);
+};
+var damageResults;
+
 $("#p2 .ability").bind("keyup change", function () {
 	autosetWeather($(this).val(), 1);
 	autosetTerrain($(this).val(), 1);
@@ -22,7 +27,6 @@ for (var i = 0; i < 4; i++) {
 	});
 }
 
-var damageResults;
 function performCalculations() {
 	var p1info = $("#p1");
 	var p2info = $("#p2");
@@ -168,8 +172,8 @@ $(".mode").change(function () {
 		window.location.replace('base' + linkExtension + '?' + params);
 	} else if (mode === 'eipp') {
 		window.location.replace('index' + linkExtension + '?' + params);
-	} else if (mode === 'eikpp') {
-		window.location.replace('eikpp2' + linkExtension + '?' + params);
+	} else if (mode === "oms") {
+		window.location.replace('oms' + linkExtension);
 	} else {
 		window.location.replace('honkalculate' + linkExtension + '?' + params);
 	}
@@ -221,9 +225,18 @@ $(document).ready(function () {
 			}
 		}
 	}
-	$(".calc-trigger").bind("change keyup", function () {
-		setTimeout(performCalculations, 0);
-	});
+
+	var importParam = params.get('import');
+	if (importParam) {
+		try {
+			var decodedImport = atob(importParam); // Decode base64
+			$('.import-team-text').val(decodedImport); // Set value to text area
+		} catch (e) {
+			console.error('Failed to decode Import parameter:', e);
+		}
+	}
+
+	$(".calc-trigger").bind("change keyup", PC_HANDLER);
 	performCalculations();
 });
 

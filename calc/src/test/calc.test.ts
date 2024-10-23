@@ -723,6 +723,62 @@ describe('calc', () => {
         );
       });
     });
+    inGens(4, 9, ({gen, calculate, Pokemon, Move, Field}) => {
+      test(`Mold Breaker does not disable abilities that don't affect direct damage (gen ${gen})`, () => {
+        const attacker = Pokemon('Rampardos', {
+          ability: 'Mold Breaker',
+        });
+
+        const defender = Pokemon('Blastoise', {
+          ability: 'Rain Dish',
+        });
+
+        const field = Field({
+          weather: 'Rain',
+        });
+
+        const move = Move('Stone Edge');
+
+        const result = calculate(attacker, defender, move, field);
+
+        expect(result.defender.ability).toBe('Rain Dish');
+
+        expect(result.desc()).toBe(
+          '0 Atk Rampardos Stone Edge vs. 0 HP / 0 Def Blastoise: 168-198 (56.1 - 66.2%) -- guaranteed 2HKO after Rain Dish recovery'
+        );
+      });
+    });
+    inGens(8, 9, ({gen, calculate, Pokemon, Move, Field}) => {
+      test('Steely Spirit should boost Steel-type moves as a field effect.', () => {
+        const pokemon = Pokemon('Perrserker', {
+          ability: 'Battle Armor',
+        });
+
+        const move = Move('Iron Head');
+
+        let result = calculate(pokemon, pokemon, move);
+
+        expect(result.desc()).toBe(
+          '0 Atk Perrserker Iron Head vs. 0 HP / 0 Def Perrserker: 46-55 (16.3 - 19.5%) -- possible 6HKO'
+        );
+
+        const field = Field({attackerSide: {isSteelySpirit: true}});
+
+        result = calculate(pokemon, pokemon, move, field);
+
+        expect(result.desc()).toBe(
+          '0 Atk Perrserker with an ally\'s Steely Spirit Iron Head vs. 0 HP / 0 Def Perrserker: 70-83 (24.9 - 29.5%) -- 99.9% chance to 4HKO'
+        );
+
+        pokemon.ability = 'Steely Spirit' as AbilityName;
+
+        result = calculate(pokemon, pokemon, move, field);
+
+        expect(result.desc()).toBe(
+          '0 Atk Steely Spirit Perrserker with an ally\'s Steely Spirit Iron Head vs. 0 HP / 0 Def Perrserker: 105-124 (37.3 - 44.1%) -- guaranteed 3HKO'
+        );
+      });
+    });
   });
 
 
@@ -1195,7 +1251,7 @@ describe('calc', () => {
         const knockoff = Move('Knock Off');
         const result = calculate(sawk, silvally, knockoff);
         expect(result.desc()).toBe(
-          '252 Atk Mold Breaker Sawk Knock Off vs. 0 HP / 0 Def Silvally-Dark: 36-43 (10.8 - 12.9%) -- possible 8HKO'
+          '252 Atk Sawk Knock Off vs. 0 HP / 0 Def Silvally-Dark: 36-43 (10.8 - 12.9%) -- possible 8HKO'
         );
       });
 

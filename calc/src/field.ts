@@ -79,10 +79,12 @@ export class Side implements State.Side {
   cannonade: boolean;
   volcalith: boolean;
   isSR: boolean;
+  isDWC: boolean;
   isReflect: boolean;
   isLightScreen: boolean;
   isProtected: boolean;
   isSeeded: boolean;
+  isSaltCure: boolean;
   isForesight: boolean;
   isTailwind: boolean;
   isHelpingHand: boolean;
@@ -101,10 +103,12 @@ export class Side implements State.Side {
     this.cannonade = !!side.cannonade;
     this.volcalith = !!side.volcalith;
     this.isSR = !!side.isSR;
+    this.isDWC = !!side.isDWC;
     this.isReflect = !!side.isReflect;
     this.isLightScreen = !!side.isLightScreen;
     this.isProtected = !!side.isProtected;
     this.isSeeded = !!side.isSeeded;
+    this.isSaltCure = !!side.isSaltCure;
     this.isForesight = !!side.isForesight;
     this.isTailwind = !!side.isTailwind;
     this.isHelpingHand = !!side.isHelpingHand;

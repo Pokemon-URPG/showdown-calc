@@ -23,6 +23,7 @@ export interface RawDesc {
   defenseEVs?: string;
   hits?: number;
   alliesFainted?: number;
+  dwc?: boolean;
   isStellarFirstUse?: boolean;
   isBeadsOfRuin?: boolean;
   isSwordOfRuin?: boolean;
@@ -328,7 +329,6 @@ export function getKOChance(
       // if the move OHKOing is guaranteed even without end of turn damage
     } else if (chanceWithoutEot === 1) {
       chance = chanceWithoutEot;
-      if (qualifier === '') text += 'guaranteed ';
       text += `OHKO${hazardsText}`;
     } else if (chanceWithoutEot > 0) {
       chance = chanceWithEot;
@@ -339,7 +339,7 @@ export function getKOChance(
       // it might be important to get the OKKO before they can move
       if (chanceWithEot === 1) {
         text += `${roundChance(chanceWithoutEot)}% chance to ${KOTurnText}${hazardsText} ` +
-          `(guaranteed ${KOTurnText}${afterTextNoHazards})`;
+          `(${KOTurnText}${afterTextNoHazards})`;
         // if the move OHKOing is possible, and eot damage increases the odds of the KO
       } else if (chanceWithEot > chanceWithoutEot) {
         text += `${roundChance(chanceWithoutEot)}% chance to ${KOTurnText}${hazardsText} ` +
@@ -353,7 +353,6 @@ export function getKOChance(
       chance = chanceWithEot;
       // if the move KOing is not possible, but eot damage guarantees the OHKO
       if (chanceWithEot === 1) {
-        if (qualifier === '') text += 'guaranteed ';
         text += `${KOTurnText}${afterText}`;
         // if the move KOing is not possible, but eot damage might KO
       } else if (chanceWithEot > 0) {
@@ -657,7 +656,7 @@ function getEndOfTurn(
       texts.push('trapping damage');
     }
   }
-  if (defender.isSaltCure && !defender.hasAbility('Magic Guard')) {
+  if (field.defenderSide.isSaltCure && !defender.hasAbility('Magic Guard')) {
     const isWaterOrSteel = defender.hasType('Water', 'Steel') ||
       (defender.teraType && ['Water', 'Steel'].includes(defender.teraType));
     damage -= Math.floor(defender.maxHP() / (isWaterOrSteel ? 4 : 8));
@@ -982,6 +981,9 @@ function buildDescription(description: RawDesc, attacker: Pokemon, defender: Pok
   }
   if (description.isProtected) {
     output += 'protected ';
+  }
+  if (description.dwc) {
+    output += 'EiPP Clause ';
   }
   if (description.isDefenderDynamaxed) {
     output += 'Dynamax ';

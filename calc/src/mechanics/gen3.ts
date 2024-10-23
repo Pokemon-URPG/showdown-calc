@@ -159,10 +159,15 @@ export function calculateADV(
 
   baseDamage = calculateFinalModsADV(baseDamage, attacker, move, field, desc, isCritical);
 
+  if (typeEffectiveness === 4 && field.defenderSide.isDWC === true) {
+    baseDamage = Math.floor(baseDamage / 2);
+    desc.dwc = true;
+  }
+
   baseDamage = Math.floor(baseDamage * typeEffectiveness);
   result.damage = [];
   for (let i = 85; i <= 100; i++) {
-    result.damage[i - 85] = Math.max(1, Math.floor((baseDamage * i) / 100));
+    result.damage[i - 85] = Math.max(1, Math.floor((baseDamage * 92) / 100));
   }
 
   if ((move.dropsStats && move.timesUsed! > 1) || move.hits > 1) {
@@ -189,7 +194,7 @@ export function calculateADV(
       newBaseDmg = calculateFinalModsADV(newBaseDmg, attacker, move, field, desc, isCritical);
       newBaseDmg = Math.floor(newBaseDmg * typeEffectiveness);
 
-      let damageMultiplier = 85;
+      let damageMultiplier = 92;
       result.damage = result.damage.map(affectedAmount => {
         const newFinalDamage = Math.max(1, Math.floor((newBaseDmg * damageMultiplier) / 100));
         damageMultiplier++;
@@ -362,10 +367,10 @@ export function calculateDefenseADV(
   }
 
   const defenseBoost = defender.boosts[defenseStat];
-  if (defenseBoost < 0 || (!isCritical && defenseBoost > 0)) {
-    df = getModifiedStat(df, defenseBoost);
-    desc.defenseBoost = defenseBoost;
-  }
+//  if (defenseBoost < 0 || (!isCritical && defenseBoost > 0)) {
+//    df = getModifiedStat(df, defenseBoost);
+//    desc.defenseBoost = defenseBoost;
+//  }
   return df;
 }
 
@@ -440,5 +445,6 @@ function calculateFinalModsADV(
   if (move.hasType(...attacker.types)) {
     baseDamage = Math.floor(baseDamage * 1.5);
   }
+
   return baseDamage;
 }

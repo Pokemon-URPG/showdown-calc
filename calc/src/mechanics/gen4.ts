@@ -250,9 +250,15 @@ export function calculateDPP(
     desc.defenderItem = defender.item;
   }
 
+  let dwcMod = 1;
+  if (typeEffectiveness === 4 && field.defenderSide.isDWC === true) {
+    dwcMod = 0.5;
+    desc.dwc = true;
+  }
+
   const damage: number[] = [];
   for (let i = 0; i < 16; i++) {
-    damage[i] = Math.floor((baseDamage * (85 + i)) / 100);
+    damage[i] = Math.floor((baseDamage * (92)) / 100);
     damage[i] = Math.floor(damage[i] * stabMod);
     damage[i] = Math.floor(damage[i] * type1Effectiveness);
     damage[i] = Math.floor(damage[i] * type2Effectiveness);
@@ -260,6 +266,7 @@ export function calculateDPP(
     damage[i] = Math.floor(damage[i] * ebeltMod);
     damage[i] = Math.floor(damage[i] * tintedMod);
     damage[i] = Math.floor(damage[i] * berryMod);
+    damage[i] = Math.floor(damage[i] * dwcMod);
     damage[i] = Math.max(1, damage[i]);
   }
   result.damage = damage;
@@ -296,7 +303,7 @@ export function calculateDPP(
       let damageMultiplier = 0;
       result.damage = result.damage.map(affectedAmount => {
         let newFinalDamage = 0;
-        newFinalDamage = Math.floor((baseDamage * (85 + damageMultiplier)) / 100);
+        newFinalDamage = Math.floor((baseDamage * 92) / 100);
         newFinalDamage = Math.floor(newFinalDamage * stabMod);
         newFinalDamage = Math.floor(newFinalDamage * type1Effectiveness);
         newFinalDamage = Math.floor(newFinalDamage * type2Effectiveness);
@@ -554,9 +561,10 @@ export function calculateDefenseDPP(
   let defense: number;
   const defenseBoost = defender.boosts[defenseStat];
   const rawDefense = defender.rawStats[defenseStat];
-  if (defenseBoost === 0 || (isCritical && defenseBoost > 0)) {
-    defense = rawDefense;
-  } else if (attacker.hasAbility('Unaware')) {
+//  if (defenseBoost === 0 || (isCritical && defenseBoost > 0)) {
+//    defense = rawDefense;
+//  } else [to reset crit boost, return the below if to this elseif position]
+    if (attacker.hasAbility('Unaware')) {
     defense = rawDefense;
     desc.attackerAbility = attacker.ability;
   } else if (defender.hasAbility('Simple')) {

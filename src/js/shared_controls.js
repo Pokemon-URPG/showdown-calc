@@ -1096,7 +1096,6 @@ function createPokemon(pokeInfo) {
 			ivs: ivs,
 			evs: evs,
 			isDynamaxed: isDynamaxed,
-			isSaltCure: pokeInfo.find(".saltcure").is(":checked"),
 			alliesFainted: parseInt(pokeInfo.find(".alliesFainted").val()),
 			boostedStat: pokeInfo.find(".boostedStat").val() || undefined,
 			teraType: teraType,
@@ -1165,6 +1164,7 @@ function createField() {
 	var isWonderRoom = $("#wonderroom").prop("checked");
 	var isGravity = $("#gravity").prop("checked");
 	var isSR = [$("#srL").prop("checked"), $("#srR").prop("checked")];
+	var isDWC = [$("#dwcL").prop("checked"), $("#dwcR").prop("checked")];
 	var weather;
 	var spikes;
 	if (gen === 2) {
@@ -1184,6 +1184,7 @@ function createField() {
 	var isLightScreen = [$("#lightScreenL").prop("checked"), $("#lightScreenR").prop("checked")];
 	var isProtected = [$("#protectL").prop("checked"), $("#protectR").prop("checked")];
 	var isSeeded = [$("#leechSeedL").prop("checked"), $("#leechSeedR").prop("checked")];
+	var isSaltCure = [$("#cureL").prop("checked"), $("#cureR").prop("checked")];
 	var isForesight = [$("#foresightL").prop("checked"), $("#foresightR").prop("checked")];
 	var isHelpingHand = [$("#helpingHandL").prop("checked"), $("#helpingHandR").prop("checked")];
 	var isTailwind = [$("#tailwindL").prop("checked"), $("#tailwindR").prop("checked")];
@@ -1197,10 +1198,10 @@ function createField() {
 
 	var createSide = function (i) {
 		return new calc.Side({
-			spikes: spikes[i], isSR: isSR[i], steelsurge: steelsurge[i],
+			spikes: spikes[i], isSR: isSR[i], isDWC: isDWC[i], steelsurge: steelsurge[i],
 			vinelash: vinelash[i], wildfire: wildfire[i], cannonade: cannonade[i], volcalith: volcalith[i],
 			isReflect: isReflect[i], isLightScreen: isLightScreen[i],
-			isProtected: isProtected[i], isSeeded: isSeeded[i], isForesight: isForesight[i],
+			isProtected: isProtected[i], isSeeded: isSeeded[i], isSaltCure: isSaltCure[i], isForesight: isForesight[i],
 			isTailwind: isTailwind[i], isHelpingHand: isHelpingHand[i], isFlowerGift: isFlowerGift[i], isFriendGuard: isFriendGuard[i],
 			isAuroraVeil: isAuroraVeil[i], isBattery: isBattery[i], isPowerSpot: isPowerSpot[i], isSwitching: isSwitchingOut[i] ? 'out' : undefined
 		});
@@ -1426,6 +1427,8 @@ function clearField() {
 	$("#clear").prop("checked", true);
 	$("#gscClear").prop("checked", true);
 	$("#gravity").prop("checked", false);
+	$("#dwcL").prop("checked", true);
+	$("#dwcR").prop("checked", true);
 	$("#srL").prop("checked", false);
 	$("#srR").prop("checked", false);
 	$("#spikesL0").prop("checked", true);
@@ -1450,6 +1453,8 @@ function clearField() {
 	$("#protectR").prop("checked", false);
 	$("#leechSeedL").prop("checked", false);
 	$("#leechSeedR").prop("checked", false);
+	$("#cureL").prop("checked", false);
+	$("#cureR").prop("checked", false);
 	$("#foresightL").prop("checked", false);
 	$("#foresightR").prop("checked", false);
 	$("#helpingHandL").prop("checked", false);

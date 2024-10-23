@@ -1462,11 +1462,12 @@ export function calculateDefenseSMSSSV(
     (move.named('Shell Side Arm') && getShellSideArmCategory(attacker, defender) === 'Physical');
   const defenseStat = hitsPhysical ? 'def' : 'spd';
   desc.defenseEVs = getStatDescriptionText(gen, defender, defenseStat, defender.nature);
-  if (defender.boosts[defenseStat] === 0 ||
-      (isCritical && defender.boosts[defenseStat] > 0) ||
-      move.ignoreDefensive) {
-    defense = defender.rawStats[defenseStat];
-  } else if (attacker.hasAbility('Unaware')) {
+//  if (defender.boosts[defenseStat] === 0 ||
+//      (isCritical && defender.boosts[defenseStat] > 0) ||
+//      move.ignoreDefensive) {
+//    defense = defender.rawStats[defenseStat];
+//  } else [to reset crit boost, return the below if to this elseif position]
+  if (attacker.hasAbility('Unaware')) {
     defense = defender.rawStats[defenseStat];
     desc.attackerAbility = attacker.ability;
   } else {
@@ -1741,6 +1742,11 @@ export function calculateFinalModsSMSSSV(
       finalMods.push(2048);
     }
     desc.defenderItem = defender.item;
+  }
+
+ if (typeEffectiveness === 4 && field.defenderSide.isDWC === true && hitCount === 0) {
+  finalMods.push(2048);
+  desc.dwc = true;
   }
 
   return finalMods;

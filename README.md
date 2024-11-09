@@ -2,7 +2,7 @@
 
 [![npm version](https://img.shields.io/npm/v/@smogon/calc.svg)](https://www.npmjs.com/package/@smogon/calc)&nbsp;
 
-Damage calculator and soon-to-be multipurpose tool for Everyone is Pokémon Pokémon.
+Modified damage calculator for Everyone is Pokémon Pokémon.
 
 Fork of [smogon/damage-calc][0].
 

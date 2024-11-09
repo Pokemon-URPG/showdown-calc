@@ -1777,7 +1777,7 @@ export function calculateFinalModsSMSSSV(
     desc.defenderItem = defender.item;
   }
 
- if (typeEffectiveness === 4 && field.defenderSide.isDWC === true && hitCount === 0) {
+ if (typeEffectiveness === 4 && field.defenderSide.isDWC === true && (move.timesUsed! === 1 || move.timesUsed! >1 && hitCount === 0)) {
   finalMods.push(2048);
   desc.dwc = true;
   }

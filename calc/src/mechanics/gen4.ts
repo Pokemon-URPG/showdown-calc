@@ -325,6 +325,9 @@ export function calculateDPP(
         newFinalDamage = Math.floor(newFinalDamage * filterMod);
         newFinalDamage = Math.floor(newFinalDamage * ebeltMod);
         newFinalDamage = Math.floor(newFinalDamage * tintedMod);
+        if (move.timesUsed! === 1) {
+    		newFinalDamage = Math.floor(newFinalDamage * dwcMod);
+        }
         newFinalDamage = Math.max(1, newFinalDamage);
         damageMultiplier++;
         return affectedAmount + newFinalDamage;

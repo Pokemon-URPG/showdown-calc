@@ -134,6 +134,11 @@ export function calculateSMSSSV(
     move.flags.contact = 0;
   }
 
+  if (move.named('Shell Side Arm') &&
+    getShellSideArmCategory(attacker, defender) === 'Physical') {
+    move.flags.contact = 1;
+  }
+
   const breaksProtect = move.breaksProtect || move.isZ || attacker.isDynamaxed ||
   (attacker.hasAbility('Unseen Fist') && move.flags.contact);
 
@@ -1028,30 +1033,31 @@ export function calculateBPModsSMSSSV(
   const bpMods = [];
 
   // Move effects
-
+  const defenderItem = (defender.item && defender.item !== '')
+    ? defender.item : defender.disabledItem;
   let resistedKnockOffDamage =
-    (!defender.item || isQPActive(defender, field)) ||
-    (defender.named('Dialga-Origin') && defender.hasItem('Adamant Crystal')) ||
-    (defender.named('Palkia-Origin') && defender.hasItem('Lustrous Globe')) ||
+    (!defenderItem || isQPActive(defender, field)) ||
+    (defender.named('Dialga-Origin') && defenderItem === 'Adamant Crystal') ||
+    (defender.named('Palkia-Origin') && defenderItem === 'Lustrous Globe') ||
     // Griseous Core for gen 9, Griseous Orb otherwise
-    (defender.name.includes('Giratina-Origin') && defender.item.includes('Griseous')) ||
-    (defender.name.includes('Arceus') && defender.item.includes('Plate')) ||
-    (defender.name.includes('Genesect') && defender.item.includes('Drive')) ||
-    (defender.named('Groudon', 'Groudon-Primal') && defender.hasItem('Red Orb')) ||
-    (defender.named('Kyogre', 'Kyogre-Primal') && defender.hasItem('Blue Orb')) ||
-    (defender.name.includes('Silvally') && defender.item.includes('Memory')) ||
-    defender.item.includes(' Z') ||
-    (defender.named('Zacian') && defender.hasItem('Rusted Sword')) ||
-    (defender.named('Zamazenta') && defender.hasItem('Rusted Shield')) ||
-    (defender.name.includes('Ogerpon-Cornerstone') && defender.hasItem('Cornerstone Mask')) ||
-    (defender.name.includes('Ogerpon-Hearthflame') && defender.hasItem('Hearthflame Mask')) ||
-    (defender.name.includes('Ogerpon-Wellspring') && defender.hasItem('Wellspring Mask')) ||
-    (defender.named('Venomicon-Epilogue') && defender.hasItem('Vile Vial'));
+    (defender.name.includes('Giratina-Origin') && defenderItem.includes('Griseous')) ||
+    (defender.name.includes('Arceus') && defenderItem.includes('Plate')) ||
+    (defender.name.includes('Genesect') && defenderItem.includes('Drive')) ||
+    (defender.named('Groudon', 'Groudon-Primal') && defenderItem === 'Red Orb') ||
+    (defender.named('Kyogre', 'Kyogre-Primal') && defenderItem === 'Blue Orb') ||
+    (defender.name.includes('Silvally') && defenderItem.includes('Memory')) ||
+    defenderItem.includes(' Z') ||
+    (defender.named('Zacian') && defenderItem === 'Rusted Sword') ||
+    (defender.named('Zamazenta') && defenderItem === 'Rusted Shield') ||
+    (defender.name.includes('Ogerpon-Cornerstone') && defenderItem === 'Cornerstone Mask') ||
+    (defender.name.includes('Ogerpon-Hearthflame') && defenderItem === 'Hearthflame Mask') ||
+    (defender.name.includes('Ogerpon-Wellspring') && defenderItem === 'Wellspring Mask') ||
+    (defender.named('Venomicon-Epilogue') && defenderItem === 'Vile Vial');
 
   // The last case only applies when the Pokemon has the Mega Stone that matches its species
   // (or when it's already a Mega-Evolution)
-  if (!resistedKnockOffDamage && defender.item) {
-    const item = gen.items.get(toID(defender.item))!;
+  if (!resistedKnockOffDamage && defenderItem) {
+    const item = gen.items.get(toID(defenderItem))!;
     resistedKnockOffDamage = !!item.megaEvolves && defender.name.includes(item.megaEvolves);
   }
 
@@ -1176,7 +1182,7 @@ export function calculateBPModsSMSSSV(
   // Sheer Force does not power up max moves or remove the effects (SadisticMystic)
   if (
     (attacker.hasAbility('Sheer Force') &&
-      (move.secondaries || move.named('Jet Punch', 'Order Up')) && !move.isMax) ||
+      (move.secondaries || move.named('Order Up')) && !move.isMax) ||
     (attacker.hasAbility('Sand Force') &&
       field.hasWeather('Sand') && move.hasType('Rock', 'Ground', 'Steel')) ||
     (attacker.hasAbility('Analytic') &&
@@ -1220,10 +1226,6 @@ export function calculateBPModsSMSSSV(
   ) {
     bpMods.push(4915);
     desc.attackerAbility = attacker.ability;
-  }
-
-  if (attacker.hasItem('Punching Glove') && move.flags.punch) {
-    bpMods.push(4506);
   }
 
   if (gen.num <= 8 && defender.hasAbility('Heatproof') && move.hasType('Fire')) {
@@ -1276,6 +1278,8 @@ export function calculateBPModsSMSSSV(
   ) {
     bpMods.push(4505);
     desc.attackerItem = attacker.item;
+  } else if (attacker.hasItem('Punching Glove') && move.flags.punch) {
+    bpMods.push(4506);
   }
   return bpMods;
 }

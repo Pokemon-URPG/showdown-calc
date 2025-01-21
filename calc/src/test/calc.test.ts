@@ -479,6 +479,23 @@ describe('calc', () => {
       });
     });
 
+    inGens(6, 9, ({gen, calculate, Pokemon, Move}) => {
+      test('Knock Off vs. Klutz', () => {
+        const weavile = Pokemon('Weavile');
+        const audino = Pokemon('Audino', {ability: 'Klutz', item: 'Leftovers'});
+        const audinoMega = Pokemon('Audino', {ability: 'Klutz', item: 'Audinite'});
+        const knockoff = Move('Knock Off');
+        const result = calculate(weavile, audino, knockoff);
+        expect(result.desc()).toBe(
+          '0 Atk Weavile Knock Off (97.5 BP) vs. 0 HP / 0 Def Audino: 139-165 (40 - 47.5%) -- guaranteed 3HKO'
+        );
+        const result2 = calculate(weavile, audinoMega, knockoff);
+        expect(result2.desc()).toBe(
+          '0 Atk Weavile Knock Off vs. 0 HP / 0 Def Audino: 93-111 (26.8 - 31.9%) -- guaranteed 4HKO'
+        );
+      });
+    });
+
     inGens(5, 9, ({gen, calculate, Pokemon, Move}) => {
       test(`Multi-hit interaction with Multiscale (gen ${gen})`, () => {
         const result = calculate(
@@ -1416,6 +1433,12 @@ describe('calc', () => {
         attacker.teraType = 'Water';
         result = calculate(attacker, defender, Move('Revelation Dance'));
         expect(result.move.type).toBe('Water');
+      });
+      test('Psychic Noise should disable healing effects', () => {
+        const attacker = Pokemon('Mewtwo');
+        const defender = Pokemon('Regigigas', {ability: 'Poison Heal', item: 'Leftovers', status: 'tox'});
+        const result = calculate(attacker, defender, Move('Psychic Noise'), Field({terrain: 'Grassy', attackerSide: {isSeeded: true}}));
+        expect(result.desc()).toBe('0 SpA Mewtwo Psychic Noise vs. 0 HP / 0 SpD Regigigas: 109-129 (30.1 - 35.7%) -- 31.2% chance to 3HKO');
       });
 
       test('Flower Gift, Power Spot, Battery, and switching boosts shouldn\'t have double spaces', () => {

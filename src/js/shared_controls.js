@@ -1169,7 +1169,7 @@ function createField() {
 	var isWonderRoom = $("#wonderroom").prop("checked");
 	var isGravity = $("#gravity").prop("checked");
 	var isSR = [$("#srL").prop("checked"), $("#srR").prop("checked")];
-	var isDWC = [$("#dwcL").prop("checked"), $("#dwcR").prop("checked")];
+	var isDWC = [false, false];
 	var weather;
 	var spikes;
 	if (gen === 2) {

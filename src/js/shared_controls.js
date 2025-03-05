@@ -678,7 +678,7 @@ $(".set-selector").change(function () {
 			for (i = 0; i < LEGACY_STATS[gen].length; i++) {
 				var stat = $("#randoms").prop("checked") ? legacyStatToStat(LEGACY_STATS[gen][i]) : LEGACY_STATS[gen][i];
 				pokeObj.find("." + LEGACY_STATS[gen][i] + " .evs").val(
-					(set.evs && set.evs[stat] !== undefined) ? set.evs[stat] : ($("#randoms").prop("checked") ? 84 : 0));
+					(set.evs && set.evs[stat] !== undefined) ? set.evs[stat] : ($("#randoms").prop("checked") ? 84 : 252));
 				pokeObj.find("." + LEGACY_STATS[gen][i] + " .ivs").val(
 					(set.ivs && set.ivs[stat] !== undefined) ? set.ivs[stat] : 31);
 				pokeObj.find("." + LEGACY_STATS[gen][i] + " .dvs").val(
@@ -1465,7 +1465,7 @@ $(".notation").change(function () {
 });
 
 function clearField() {
-	$("#doubles-format").prop("checked", true);
+	$("#singles-format").prop("checked", true);
 	$("#clear").prop("checked", true);
 	$("#gscClear").prop("checked", true);
 	$("#gravity").prop("checked", false);

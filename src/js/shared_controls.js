@@ -721,11 +721,11 @@ $(".set-selector").change(function () {
 		} else {
 			pokeObj.find(".teraType").val(getForcedTeraType(pokemonName) || pokemon.types[0]);
 			pokeObj.find(".level").val(defaultLevel);
-			pokeObj.find(".hp .evs").val(0);
+			pokeObj.find(".hp .evs").val(252);
 			pokeObj.find(".hp .ivs").val(31);
 			pokeObj.find(".hp .dvs").val(15);
 			for (i = 0; i < LEGACY_STATS[gen].length; i++) {
-				pokeObj.find("." + LEGACY_STATS[gen][i] + " .evs").val(0);
+				pokeObj.find("." + LEGACY_STATS[gen][i] + " .evs").val(252);
 				pokeObj.find("." + LEGACY_STATS[gen][i] + " .ivs").val(31);
 				pokeObj.find("." + LEGACY_STATS[gen][i] + " .dvs").val(15);
 			}
@@ -1772,8 +1772,8 @@ $(document).ready(function () {
 	$("#gen9").change();
 	$("#percentage").prop("checked", true);
 	$("#percentage").change();
-	$("#doubles-format").prop("checked", true);
-	$("#doubles-format").change();
+	$("#singles-format").prop("checked", true);
+	$("#singles-format").change();
 	$("#default-level-100").prop("checked", true);
 	$("#default-level-100").change();
 	loadDefaultLists();
